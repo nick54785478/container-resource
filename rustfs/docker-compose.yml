@@ -1,0 +1,22 @@
+services:
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: rustfs
+    ports:
+      - "9000:9000"  # S3 API 通訊埠
+      - "9001:9001"  # Web 控制台通訊埠
+    environment:
+      - RUSTFS_ACCESS_KEY=rustfsadmin       # 登入帳號 (Access Key)
+      - RUSTFS_SECRET_KEY=rustfssecret123   # 登入密碼 (Secret Key)
+      - RUSTFS_ADDRESS=0.0.0.0:9000
+      - RUSTFS_CONSOLE_ADDRESS=0.0.0.0:9001
+      - RUSTFS_CONSOLE_ENABLE=true
+      - TZ=Asia/Taipei
+    volumes:
+      - rustfs-data:/data
+      - rustfs-logs:/logs
+    command: /data
+
+volumes:
+  rustfs-data:
+  rustfs-logs:
